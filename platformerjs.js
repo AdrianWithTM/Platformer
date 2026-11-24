@@ -25,30 +25,35 @@ window.addEventListener('keyup',(e)=>{
 
 function gameLoop(){
 
-    const groundY = window.innerHeight - groundHeight;
+  const groundY = window.innerHeight - groundHeight;
 
-    if(keys['KeyA']) x -= speed;
-    if(keys['KeyD']) x += speed;
+  if(keys['KeyA']) x -= speed;
+  if(keys['KeyD']) x += speed;
 
-    x = Math.max(0, Math.min(x, window.innerWidth - playerWidth));
+  x = Math.max(0, Math.min(x, window.innerWidth - playerWidth));
 
-    if(keys['KeyW'] && isGrounded){
-      vy = jumpPower;
-      isGrounded = false;
-    }
+  if(keys['KeyW'] && isGrounded){
+    vy = jumpPower;
+    isGrounded = false;
+  }
 
-    vy += gravity;
-    y += vy;
-
-    if (y + playerHeight >= groundY){
-      y = groundY - playerHeight;
-      vy = 0;
-      isGrounded = true;
-    }
-
-    player.style.transform = `translate(${x}px, ${y}px)`;
+  if(keys['Space'] && isGrounded){
+    vy = jumpPower;
+    isGrounded = false;
+  }
     
-    requestAnimationFrame(gameLoop);
+  vy += gravity;
+  y += vy;
+
+  if (y + playerHeight >= groundY){
+    y = groundY - playerHeight;
+    vy = 0;
+    isGrounded = true;
+  }
+
+  player.style.transform = `translate(${x}px, ${y}px)`;
+    
+  requestAnimationFrame(gameLoop);
 }
 
 gameLoop();
