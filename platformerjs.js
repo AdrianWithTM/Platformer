@@ -38,8 +38,11 @@ function gameLoop(){
   }
 
   if(keys['Space'] && isGrounded){
-    vy = jumpPower;
-    isGrounded = false;
+    console.log("Space");
+  }
+
+  if(keys['ShiftLeft'] && isGrounded){
+    console.log("Shift");
   }
     
   vy += gravity;
