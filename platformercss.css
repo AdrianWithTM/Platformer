@@ -47,8 +47,8 @@ html, body {
     position: absolute;
     top: 0;
     left: 0;
-    width: 50px; /*Jāsakrīt ar playerWidth js file*/
-    height: 50px; /*Jāsakrīt ar playerHeight js file*/
+    width: 50px;
+    height: 50px;
     background-color: red;
     z-index: 2;
 }
@@ -178,7 +178,6 @@ html, body {
     z-index: 1;
 }
 
-/* Rises from the bottom as the cooldown progresses */
 .ability-fill {
     position: absolute;
     left: 0;
