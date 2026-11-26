@@ -3,6 +3,7 @@ html, body {
     width: 100%;
     margin: 0;
     overflow: hidden;
+    font-family: system-ui, sans-serif;
 }
 
 .background {
@@ -10,15 +11,36 @@ html, body {
     background-color: gray;
     height: 100%;
     width: 100%;
+    overflow: hidden;
+}
+
+#world {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    will-change: transform;
 }
 
 #ground {
     position: absolute;
-    bottom: 0;
+    top: 0;
     left: 0;
     width: 100%;
-    height: 100px; /*Jāsakrīt ar groundHeight js file*/
+    height: 100px;
     background-color: black;
+}
+
+.platform {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    background-color: #2b2b2b;
+    border-top: 4px solid #6b6b6b;
+    box-sizing: border-box;
+    border-radius: 3px;
 }
 
 #player {
@@ -28,4 +50,180 @@ html, body {
     width: 50px; /*Jāsakrīt ar playerWidth js file*/
     height: 50px; /*Jāsakrīt ar playerHeight js file*/
     background-color: red;
+    z-index: 2;
+}
+
+#lava {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, #ffb300 0, #ff6a00 30px, #d63a00 140px, #8f1d00 100%);
+    box-shadow: 0 -12px 40px 8px rgba(255, 120, 0, 0.55);
+    z-index: 3;
+    will-change: transform;
+}
+
+#hud {
+    position: absolute;
+    top: 12px;
+    left: 16px;
+    color: white;
+    font-size: 20px;
+    font-weight: 600;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+    z-index: 5;
+}
+
+#gameOver {
+    display: none;
+    position: absolute;
+    inset: 0;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.55);
+    color: white;
+    text-align: center;
+    z-index: 6;
+}
+
+#gameOver.show {
+    display: flex;
+}
+
+#countdown {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    font-size: min(22vw, 200px);
+    font-weight: 800;
+    z-index: 7;
+    pointer-events: none;
+    transition: background 0.4s, opacity 0.4s;
+}
+
+#countdown.hidden {
+    background: transparent;
+    opacity: 0;
+}
+
+/* Dash visual effects (white) */
+#player.dashing {
+    box-shadow: 0 0 14px 4px rgba(255, 255, 255, 0.9);
+}
+
+.dash-ghost {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50px;
+    height: 50px;
+    background-color: white;
+    z-index: 1;
+    pointer-events: none;
+    animation: dashFade 0.3s ease-out forwards;
+}
+
+.dash-streak {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 45px;
+    height: 3px;
+    background-color: white;
+    border-radius: 2px;
+    z-index: 1;
+    pointer-events: none;
+    animation: dashFade 0.25s ease-out forwards;
+}
+
+@keyframes dashFade {
+    from { opacity: 0.6; }
+    to   { opacity: 0; }
+}
+
+#abilities {
+    position: absolute;
+    left: 20px;
+    bottom: 20px;
+    display: flex;
+    gap: 12px;
+    z-index: 5;
+}
+
+.ability {
+    position: relative;
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: #3a3a3a;
+    border: 3px solid white;
+    box-sizing: border-box;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ability svg {
+    width: 60%;
+    height: 60%;
+    position: relative;
+    z-index: 1;
+}
+
+/* Rises from the bottom as the cooldown progresses */
+.ability-fill {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 0%;
+    background: rgba(255, 255, 255, 0.28);
+    z-index: 2;
+}
+
+.ability-time {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    opacity: 0.85;
+    font-size: 17px;
+    font-weight: 700;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+    z-index: 3;
+}
+
+.ability.cooling {
+    background: #121212;
+}
+
+.ability.cooling svg {
+    opacity: 0.3;
+}
+
+.jump-ring {
+    position: absolute;
+    width: 50px;
+    height: 14px;
+    border: 3px solid white;
+    border-radius: 50%;
+    box-sizing: border-box;
+    z-index: 1;
+    pointer-events: none;
+    animation: ringExpand 0.35s ease-out forwards;
+}
+
+@keyframes ringExpand {
+    from { opacity: 0.8; transform: scale(0.4); }
+    to   { opacity: 0;   transform: scale(1.8); }
 }
